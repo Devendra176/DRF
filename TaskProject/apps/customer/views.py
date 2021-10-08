@@ -57,14 +57,14 @@ class UserCreatePhoneView(APIView):
 
     def post(self, request,*args, **kwargs):
         phone = request.data.get('username',None)
-        request.session['phone'] = phone
+        # request.session['phone'] = phone
         # otp = OTPGenerate(phone)
         otp=123456
-        # print(otp)
+        # print(request.session.get('phone'))
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             LoginSerializer().create(serializer.data,context={'otp': otp})
-            return JsonResponse({'status':1003,'message':'Verification OTP sent on a mobile number','url':'otp/'})
+            return JsonResponse({'status':1003,'message':'Verification OTP sent on a mobile number','url':'otp/{}/'.format(int(phone))})
         return JsonResponse({'message':status.HTTP_400_BAD_REQUEST})
     
 class OtpVerification(APIView):
@@ -73,20 +73,19 @@ class OtpVerification(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'customers/otp.html'
 
-    def get(self, request):
-        content={'message':'enter otp'}
+    def get(self, request, phone):
+        content={'message':'enter otp','phone':phone}
         return Response(content)
 
-    def post(self, request):
-        
-        serializer = OtpVerificationSerializer(data=request.data,context={'phone':request.session.get('phone')})
+    def post(self, request,phone):
+        serializer = OtpVerificationSerializer(data=request.data,context={'phone':phone})
         if serializer.is_valid():
             print(request.data)
-            user = authenticate(username=request.session.get('phone'),password=request.data.get('Otp'))
+            user = authenticate(username=phone,password=request.data.get('Otp'))
             login(request, user)
             refresh =  RefreshToken.for_user(user)
-            return JsonResponse({'payload':serializer.data,'refresh':str(refresh),'access':str(refresh.access_token)})
-        return Response({'error':'error'})
+            return JsonResponse({'status':1001,'message':'Verify','payload':serializer.data,'refresh':str(refresh),'access':str(refresh.access_token),'url':'/api/customer/{}/customer/'.format(phone)})
+        return JsonResponse({'status':400,'message':'error'})
 
 class CustomerProfile(APIView):
     authentication_classes =[JWTAuthentication]
@@ -94,10 +93,10 @@ class CustomerProfile(APIView):
     serializer_class = CustomerProfileSerializer
     
 
-    def get(self, request):
+    def get(self, request,phone):
         return Response({'message':'hello'})
 
-    def post(self, request):
+    def post(self, request,phone):
         serializer = CustomerProfileSerializer(data=request.data)
         if serializer.is_valid():
             CustomerProfileSerializer().create(serializer.data,context={'phone':get_user(request).username})

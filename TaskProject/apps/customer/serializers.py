@@ -1,6 +1,7 @@
 # from .models import User
 import datetime
 from django.contrib.auth import get_user_model
+
 from django.http import request
 # from django.contrib.auth import authenticate, login
 from .models import Customer, ImageUpload
@@ -52,8 +53,9 @@ class OtpVerificationSerializer(serializers.Serializer):
     def validate(self,validated_data,*args,**kwargs):
         otp = validated_data.get('Otp',None)
         print(otp)
+        print(self.context)
         querydata = get_user_model().objects.get(username=self.context['phone'])
-        # print(gettime(),converttime(querydata.expiry_date))
+        print(querydata)
         if otp == None or otp == '':
             raise serializers.ValidationError("OTP cant be empty")
 

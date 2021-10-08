@@ -6,6 +6,7 @@
 <script type="text/javascript" src="{% static 'js/cookies.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/edit_profile.js' %}" ></script>
 <script type="text/javascript" src="{% static 'js/signin.js' %}" ></script>
+<script type="text/javascript" src="{% static 'js/otp.js' %}" ></script>
 
 <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -61,11 +62,11 @@ tr:nth-child(even) {
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 40px;">Users<b class="fa fa-angle-down"></b></a>
                 <ul class="dropdown-menu">
-                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'customer:customer_profile' %}"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+                    <!-- {% if user.is_authenticated %}
+                    <li><a ><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
                     {%else%}
-                    <li><a href="{% url 'customer:login' %}"><i class="fa fa-sign-in"></i> Login</a></li>
-                    {%endif%}
+                    <li><a href="{% url 'customer:login' %}"><i class="fa fa-sign-in"></i> {{user.is_authenticated}}</a></li>
+                    {%endif%} -->
                 </ul>
             </li>
         </ul>
@@ -74,38 +75,38 @@ tr:nth-child(even) {
             <ul class="nav navbar-nav side-nav" >
 
 
-
+<!-- 
                 {% if  not user.is_authenticated %}
                 <li>
-                    <a href="{% url 'customer:customer_profile' %}"><i class="fa fa-fw fa-user-plus"></i> Join with stripe</a>
+                    <a ><i class="fa fa-fw fa-user-plus"></i> Join with stripe</a>
 
                 </li>
-                {% endif %}
+                {% endif %} -->
 
                 {% if user.is_authenticated %}
                 {% if user.is_staff == False %}
                 <li>
-                    <a href="{% url 'customer:customer_profile' %}" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-credit-card" aria-hidden="true"></i>  Payment</a>
+                    <a href="" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-credit-card" aria-hidden="true"></i>  Payment</a>
 
                 </li>
                 
                 <li>
-                    <a href="{% url 'customer:customer_profile' %}" data-toggle="collapse" data-target="#submenu-2"> Subscription Plan</a>
+                    <a href="" data-toggle="collapse" data-target="#submenu-2"> Subscription Plan</a>
                 </li>
                 
                 
                 <li>
-                    <a href="{% url 'customer:customer_profile' %}"> Subscribed Plans</a>
+                    <a href=""> Subscribed Plans</a>
                 </li>
                 {% else %}
                 <li>
-                    <a href="{% url 'customer:customer_profile' %}"><i class="fa fa-fw fa fa-question-circle"></i> Add Plans</a>
+                    <a href=""><i class="fa fa-fw fa fa-question-circle"></i> Add Plans</a>
                 </li>
                 <li>
-                    <a href="{% url 'customer:customer_profile' %}"> Plans</a>
+                    <a > Plans</a>
                 </li>
                 <li>
-                    <a href="{% url 'customer:customer_profile' %}"> Subscribed Plans</a>
+                    <a > Subscribed Plans</a>
                 </li>
                 {% endif %}
 

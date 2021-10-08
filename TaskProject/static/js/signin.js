@@ -2,6 +2,7 @@
 $(document).ready(function(){
 $("#login_button",).click(function (e) {
     e.preventDefault();
+
   var url =$(this).attr('href_url');
   let username=$('#username').val();
   let csrf=window.CSRF_TOKEN;
@@ -25,9 +26,8 @@ if(username){
         if(data.status==1003){
           
           window.location.href=data.url;
-          console.log(data);
+
         }else if(data.status!=1003){
-          console.log(data);
             $('#login_error').show();
             // $('#login_error').text(data.msg)
         }

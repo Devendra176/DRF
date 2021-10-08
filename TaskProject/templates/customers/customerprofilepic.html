@@ -17,7 +17,7 @@
 <div style="margin-top: 50px;">
                             <form  method="POST" class="form" role="form" autocomplete="off">
                               {% csrf_token %}
-                                <input type="hidden" id="cus_id" name="cus_id" value="{{cus_id}}">
+                                <input type="hidden" id="phone" name="phone" value="{{phone}}">
                                 <input type="hidden"  id="PaymentMethod_id" name="PaymentMethod_id" value="{{PaymentMethod_id}}">
                                 <div class="form-group">
                                     <label for="cc_name">Card Holder's Email</label>
@@ -46,7 +46,7 @@
                                         <button type="reset" class="btn btn-default btn-lg btn-block">Discard changes</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button type="submit" id="save_profile" href_url="{% url 'customer_profile' %}" class="btn btn-success btn-lg btn-block">Save</button>
+                                        <button type="submit" id="save_profile" href_url="" class="btn btn-success btn-lg btn-block">Save</button>
                                     </div>
                                 </div>
                             </form>
