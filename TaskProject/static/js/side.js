@@ -8,5 +8,5 @@ $(function(){
     });
 })    
 
-var url=location.href;
-localStorage.setItem("url",url);
+// var url=location.href;
+// localStorage.setItem("url",url);

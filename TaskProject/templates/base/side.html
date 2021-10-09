@@ -62,11 +62,11 @@ tr:nth-child(even) {
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 40px;">Users<b class="fa fa-angle-down"></b></a>
                 <ul class="dropdown-menu">
-                    <!-- {% if user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <li><a ><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
                     {%else%}
-                    <li><a href="{% url 'customer:login' %}"><i class="fa fa-sign-in"></i> {{user.is_authenticated}}</a></li>
-                    {%endif%} -->
+                    <li><a href="{% url 'customer:login' %}"><i class="fa fa-sign-in"></i> Login</a></li>
+                    {%endif%}
                 </ul>
             </li>
         </ul>
@@ -75,39 +75,15 @@ tr:nth-child(even) {
             <ul class="nav navbar-nav side-nav" >
 
 
-<!-- 
-                {% if  not user.is_authenticated %}
-                <li>
-                    <a ><i class="fa fa-fw fa-user-plus"></i> Join with stripe</a>
-
-                </li>
-                {% endif %} -->
-
                 {% if user.is_authenticated %}
                 {% if user.is_staff == False %}
                 <li>
-                    <a href="" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-credit-card" aria-hidden="true"></i>  Payment</a>
-
-                </li>
-                
-                <li>
-                    <a href="" data-toggle="collapse" data-target="#submenu-2"> Subscription Plan</a>
-                </li>
-                
-                
-                <li>
-                    <a href=""> Subscribed Plans</a>
-                </li>
-                {% else %}
-                <li>
-                    <a href=""><i class="fa fa-fw fa fa-question-circle"></i> Add Plans</a>
+                    <a href="" data-toggle="collapse" data-target="#submenu-1"> Trade Type</a>
                 </li>
                 <li>
-                    <a > Plans</a>
+                    <a href="" data-toggle="collapse" data-target="#submenu-2"> Trade Man</a>
                 </li>
-                <li>
-                    <a > Subscribed Plans</a>
-                </li>
+            
                 {% endif %}
 
 
@@ -124,7 +100,7 @@ tr:nth-child(even) {
             <!-- Page Heading -->
             <div class="row" id="main" >
                 <div class="col-sm-12 col-md-12 well" id="content">
-                    <h1>{% if request.user.pk %}Welcome {{ request.user.username }} in payment method using stripe{% else %} Please sign in for using stripe {% endif %}</h1>
+                    <h1>{% if request.user.is_staff == False %} Welcome {{ request.user.username }}{% endif %}</h1>
                 </div>
             </div>
             <!-- /.row -->

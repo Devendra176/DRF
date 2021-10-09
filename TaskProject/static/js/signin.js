@@ -4,7 +4,8 @@ $("#login_button",).click(function (e) {
     e.preventDefault();
 
   var url =$(this).attr('href_url');
-  let username=$('#username').val();
+  var username=$('#username').val();
+
   let csrf=window.CSRF_TOKEN;
 
   mydata={username:username,csrf:csrf};

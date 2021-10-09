@@ -1,6 +1,6 @@
 # from .models import User
 import datetime
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user, get_user_model
 
 from django.http import request
 # from django.contrib.auth import authenticate, login
@@ -8,15 +8,12 @@ from .models import Customer, ImageUpload
 # from django.conf import settings
 from rest_framework import serializers
 
-class UserCreateSerializer(serializers.ModelSerializer):
+class Usersializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['username','password']
+        fields = '__all__'
         extra_fields ={'password':{'write_only':True},}
 
-    # def create(self,validated_data):
-
-    #     return get_user_model().objects.create_user(**validated_data)
 
 class LoginSerializer(serializers.Serializer):
     username= serializers.CharField(max_length=10)
@@ -41,11 +38,13 @@ class LoginSerializer(serializers.Serializer):
         return data
 
 def gettime():
-    now = datetime.datetime.now().strftime('%s')
-    return now
+    now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+
+    return int(now)
 def converttime(stringtime):
-    stringtime =stringtime.strftime('%s')
-    return stringtime
+    stringtime =stringtime.strftime("%Y%m%d%H%M%S")
+
+    return int(stringtime)
 
 
 class OtpVerificationSerializer(serializers.Serializer):
@@ -54,6 +53,7 @@ class OtpVerificationSerializer(serializers.Serializer):
         otp = validated_data.get('Otp',None)
         print(otp)
         print(self.context)
+        print(get_user_model().objects.filter(username=self.context['phone']))
         querydata = get_user_model().objects.get(username=self.context['phone'])
         print(querydata)
         if otp == None or otp == '':
@@ -69,9 +69,10 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
-    
+
     def filer(self,email):
         return Customer.objects.filter(email_address=email)
+
 
 class CustomerProfileSerializer(serializers.Serializer):
 
@@ -79,14 +80,15 @@ class CustomerProfileSerializer(serializers.Serializer):
     email_address = serializers.CharField(max_length=255)
     date_of_birth =serializers.DateField()
 
-    def create(self,validated_data,*args,**kwargs):
-        customer_name = validated_data.get('customer_name',None)
-        email_address = validated_data.get('email_address',None)
-        date_of_birth = validated_data.get('date_of_birth',None)
-        user  = CustomerSerializer().filer(email=email_address)
-        if not user:
-            user = Customer.objects.create(customer_name=customer_name,email_address=email_address,date_of_birth=date_of_birth,mobile_number=kwargs['context']['phone'])
-        return validated_data
+    # def create(self,validated_data,*args,**kwargs):
+    #     customer_name = validated_data.get('customer_name',None)
+    #     email_address = validated_data.get('email_address',None)
+    #     date_of_birth = validated_data.get('date_of_birth',None)
+    #     user  = CustomerSerializer().filer(email=email_address)
+    #     if not user:
+    #         print(kwargs['context']['phone'])
+    #         user = Customer.objects.create(customer_name=customer_name,email_address=email_address,date_of_birth=date_of_birth,mobile_number=kwargs['context']['phone'])
+    #     return validated_data
 
     def validate(self,validated_data):
         customer_name = validated_data.get('customer_name',None)
@@ -97,13 +99,11 @@ class CustomerProfileSerializer(serializers.Serializer):
         return validated_data
 
 class ProfilePicturSerializer(serializers.ModelSerializer):
-    
+    customer_id = serializers.IntegerField(source=get_user_model().id)
     class Meta:
         model = ImageUpload
-        fields = ('customer_id','imagepath')
+        fields = '__all__'
     
-    def save_or_update(self,validated_data,**kwargs):
-        print(validated_data)
-        return validated_data
+
 
 

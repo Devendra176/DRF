@@ -6,9 +6,9 @@ from django.contrib.auth.models import AbstractUser
 # from django.db.models.fields.related import OneToOneField
 
 class User(AbstractUser):
-    # mobile_nubmer = models.IntegerField(unique=True,max_length=)
+    
     expiry_date=models.DateTimeField()
-    # USERNAME_FIELD = "mobile_nubmer"
+
 def pre_save_receiver(sender, instance, *args, **kwargs):
     now= datetime.datetime.now()+datetime.timedelta(minutes=3)
     instance.expiry_date=now
@@ -21,7 +21,7 @@ class Customer(models.Model):
     date_of_birth = models.DateField()
     email_address = models.EmailField(max_length=255,unique=True)
     mobile_number = models.CharField(max_length=15)
-    status = models.BooleanField(default=True)
+    status = models.BooleanField(default=False)
     created_date = models.DateTimeField()
     def __str__(self):
         return self.customer_name
