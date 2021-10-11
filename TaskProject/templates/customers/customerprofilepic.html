@@ -24,6 +24,7 @@
                             <form  method="POST" class="form" role="form" autocomplete="off">
                               {% csrf_token %}
                               <form>
+                                  
                                 <div class="form-group">
                                   <label for="exampleFormControlFile1">profile pic</label>
                                   <input type="hidden" id="customer_id" name="customer_id" value="{{request.user.pk}}" />

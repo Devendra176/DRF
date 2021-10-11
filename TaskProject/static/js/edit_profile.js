@@ -38,14 +38,17 @@ $(document).ready(function(){
     var url =$(this).attr('href_url');
     formdata = new FormData();
     var imagepath=$('input[name=imagepath]')[0].files[0];
-    let customer_id = $('#customer_id').val();
+    var customer_id = $('#customer_id').val();
+    customer_id = parseInt(customer_id);
+    console.log(typeof customer_id);
     let status=true;
     let csrf=window.CSRF_TOKEN;
     
     formdata.append("imagepath", imagepath);
     formdata.append("csrf", csrf);
     formdata.append("status", status);
-    formdata.append("customer_id", customer_id);
+    formdata.append("customer_id",customer_id);
+    console.log(formdata);
       $.ajax({
         url: url,
         type: 'POST',
@@ -53,6 +56,7 @@ $(document).ready(function(){
         data:formdata,
         processData: false,
         contentType: false,
+        
         success:function(data){ 
           if (data.status==1001){
             window.location.reload(true);

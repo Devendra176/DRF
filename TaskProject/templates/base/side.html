@@ -63,7 +63,7 @@ tr:nth-child(even) {
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 40px;">Users<b class="fa fa-angle-down"></b></a>
                 <ul class="dropdown-menu">
                     {% if user.is_authenticated %}
-                    <li><a ><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+                    <li><a href="{% url 'customer:logout' %}" ><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
                     {%else%}
                     <li><a href="{% url 'customer:login' %}"><i class="fa fa-sign-in"></i> Login</a></li>
                     {%endif%}

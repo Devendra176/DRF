@@ -99,10 +99,16 @@ class CustomerProfileSerializer(serializers.Serializer):
         return validated_data
 
 class ProfilePicturSerializer(serializers.ModelSerializer):
-    customer_id = serializers.IntegerField(source=get_user_model().id)
+    customer_id = serializers.IntegerField(source='customer.id')
+    
     class Meta:
         model = ImageUpload
         fields = '__all__'
+    
+    def validate(self, validated_data):
+        customer_id = validated_data.get('customer_id', None)
+        if customer_id != None:
+            customer_id = int(customer_id)
     
 
 

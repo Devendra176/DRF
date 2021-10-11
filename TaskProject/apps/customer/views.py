@@ -123,14 +123,17 @@ class CustomerProfilePictureUpload(CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = ProfilePicturSerializer
     def post(self, request,phone):
-        print(request.data)
+        print(type(request.data.get('customer_id')))
         serializer = ProfilePicturSerializer(data=request.data)
-        print(serializer.is_valid())
-        # print(request.data.get('imagepath'))
-        pass
-        # if serializer.is_valid():
-        #     pass
+
+        # print(serializer.data)
+        # print(serializer.is_valid())
+        # # print(request.data.get('imagepath'))
+        # pass
+        if serializer.is_valid():
+            pass
         # return Response(serializer.data)
+        pass
 
 
 
