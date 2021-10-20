@@ -22,7 +22,7 @@ $(document).ready(function(){
         dataType: 'json',
         success:function(data){ 
           if(data.status==1001){
-            // console.log(data.url)
+            
             window.location.href=data.url;
             // console.log(localStorage.getItem("url"));
           }else if(data.status==400){

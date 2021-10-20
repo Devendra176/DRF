@@ -38,16 +38,16 @@ $(document).ready(function(){
     var url =$(this).attr('href_url');
     formdata = new FormData();
     var imagepath=$('input[name=imagepath]')[0].files[0];
-    var customer_id = $('#customer_id').val();
-    customer_id = parseInt(customer_id);
-    console.log(typeof customer_id);
+    let customer = $('#customer').val();
+    // customer = parseInt(customer);
+    console.log(typeof customer);
     let status=true;
     let csrf=window.CSRF_TOKEN;
     
     formdata.append("imagepath", imagepath);
     formdata.append("csrf", csrf);
     formdata.append("status", status);
-    formdata.append("customer_id",customer_id);
+    formdata.append("customer",customer);
     console.log(formdata);
       $.ajax({
         url: url,
@@ -58,9 +58,9 @@ $(document).ready(function(){
         contentType: false,
         
         success:function(data){ 
-          if (data.status==1001){
+          if (data.status==1006){
             window.location.reload(true);
-              }else if(data.status!=1001){
+              }else if(data.status!=1006){
                   window.location.reload(true);
               }else{
                 console.log(" sever failed  ")

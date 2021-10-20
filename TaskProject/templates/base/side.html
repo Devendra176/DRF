@@ -78,10 +78,10 @@ tr:nth-child(even) {
                 {% if user.is_authenticated %}
                 {% if user.is_staff == False %}
                 <li>
-                    <a href="" data-toggle="collapse" data-target="#submenu-1"> Trade Type</a>
+                    <a href="{% url 'Tradesman:tradelist' %}" data-toggle="collapse" data-target="#submenu-1"> Trade Type</a>
                 </li>
                 <li>
-                    <a href="" data-toggle="collapse" data-target="#submenu-2"> Trade Man</a>
+                    <a href="{% url 'Tradesman:trademanlist' %}" data-toggle="collapse" data-target="#submenu-2"> Trade Man</a>
                 </li>
             
                 {% endif %}

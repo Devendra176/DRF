@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import environ
 from pathlib import Path
 import os
-
+env = environ.Env()
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -89,16 +90,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql', 
-#         'NAME': 'TaskProject',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'TaskProject',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
 
 
 # Password validation
@@ -182,6 +183,6 @@ SIMPLE_JWT = {
 
 }
 
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-# SESSION_COOKIE_AGE = 5 * 60 #
-# SESSION_EXPIRE_SECONDS =  5 * 60
+YOUR_ACCOUNT_SID = env('YOUR_ACCOUNT_SID')
+YOUR_AUTH_TOKEN = env('YOUR_AUTH_TOKEN')
+YOUR_TRAIL_NUMBER= env('YOUR_TRAIL_NUMBER')

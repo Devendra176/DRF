@@ -32,12 +32,13 @@ pre_save.connect(pre_save_receiver_created_date, sender = Customer)
 post_save.connect(pre_save_receiver_created_date, sender = Customer)
 
 class ImageUpload(models.Model):
-    customer_id = models.OneToOneField(Customer,on_delete=models.CASCADE,primary_key=True)
+    customer = models.OneToOneField(Customer,on_delete=models.CASCADE,primary_key=True)
     imagepath = models.ImageField(upload_to='profilePic',blank=True ,null=True)
     created_at = models.DateTimeField()
     status = models.BooleanField(default=False)
     def __str__(self):
-        return "Customer Id" % self.id
+        return str(self.customer)
+
 def pre_save_receiver_created_date(sender, instance, *args, **kwargs):
     now= datetime.datetime.now()
     instance.created_at=now

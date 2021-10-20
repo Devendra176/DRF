@@ -12,5 +12,5 @@ urlpatterns = [
     path('otp/<str:phone>/', OtpVerification.as_view(),name="otp_verification"),
     path('<str:phone>/customer/',CustomerProfile.as_view(),name="customer_profile"),
     path('<str:phone>/customer/profile/',CustomerProfilePictureUpload.as_view(),name="customer_profilepic"),
-    path('logout/',func_views.logout,name="logout"),
+    path('logout/',func_views.logout_view,name="logout"),
 ]
